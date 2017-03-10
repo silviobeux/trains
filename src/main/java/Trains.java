@@ -4,12 +4,6 @@ import java.util.Scanner;
 
 public class Trains {
 
-    public static final String ROUTE_ONE = "ABC";
-    public static final String ROUTE_TWO = "AD";
-    public static final String ROUTE_THREE = "ADC";
-    public static final String ROUTE_FOUR = "AEBCD";
-    public static final String ROUTE_FIVE = "AED";
-
     public static void main(String[] args) {
 
         if (args.length != 1) {
@@ -24,11 +18,15 @@ public class Trains {
             String graphInput = scanner.nextLine();
             Graph graph = new Graph(TrainsUtils.createEdgesFromInput(graphInput));
 
-            System.out.println("Output #1: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString(ROUTE_ONE)));
-            System.out.println("Output #2: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString(ROUTE_TWO)));
-            System.out.println("Output #3: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString(ROUTE_THREE)));
-            System.out.println("Output #4: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString(ROUTE_FOUR)));
-            System.out.println("Output #5: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString(ROUTE_FIVE)));
+            System.out.println("Output #1: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString("ABC")));
+            System.out.println("Output #2: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString("AD")));
+            System.out.println("Output #3: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString("ADC")));
+            System.out.println("Output #4: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString("AEBCD")));
+            System.out.println("Output #5: " + graph.outputRouteDistance(TrainsUtils.createRouteFromString("AED")));
+            System.out.println("Output #6: " + graph.
+                    numberOfRoutesOfMaximumKStops(TrainsUtils.getNodeIndex('C'), TrainsUtils.getNodeIndex('C'), 3));
+            System.out.println("Output #7: " + graph.
+                    numberOfRoutesOfExactlyKStops(TrainsUtils.getNodeIndex('A'), TrainsUtils.getNodeIndex('C'), 4));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

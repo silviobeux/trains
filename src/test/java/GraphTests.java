@@ -100,4 +100,49 @@ public class GraphTests {
 
         assertEquals(9, graph.routeDistance(route));
     }
+
+    @Test
+    public void outputRouteDistanceReturnsStringRepresentationOfDistanceIfItIsGreaterThanZero(){
+        Graph graph = new Graph();
+        Edge graphEdge = new Edge(0,1,5);
+        graph.addEdge(graphEdge);
+
+        Edge edge = new Edge(0,1);
+        List<Edge> route = new ArrayList<>();
+        route.add(edge);
+
+        assertEquals("5", graph.outputRouteDistance(route));
+    }
+
+    @Test
+    public void outputRouteDistanceReturnsNoSuchRouteIfDistanceIsLessOrEqualThanZero(){
+        Graph graph = new Graph();
+        assertEquals(TrainsConstants.NO_SUCH_ROUTE, graph.outputRouteDistance(new ArrayList<>()));
+    }
+
+    @Test
+    public void numberOfRoutesOfExactlyOneStopBetweenNodesReturnsOneIfConnected() {
+        Graph graph = new Graph();
+        Edge graphEdge = new Edge(0,1,5);
+        graph.addEdge(graphEdge);
+
+        assertEquals(1, graph.numberOfRoutesOfExactlyKStops(0,1,1));
+    }
+
+    @Test
+    public void numberOfRoutesOfExactlyOneStopBetweenNodesReturnsZeroIfNotConnected() {
+        Graph graph = new Graph();
+        assertEquals(0, graph.numberOfRoutesOfExactlyKStops(0,0,1));
+    }
+
+    @Test
+    public void numberOfRoutesOfExactly0StopBetweenNodesReturnsZero() {
+        Graph graph = new Graph();
+        Edge graphEdge = new Edge(0,1,5);
+        graph.addEdge(graphEdge);
+
+        assertEquals(0, graph.numberOfRoutesOfExactlyKStops(0,1,0));
+    }
+
+
 }

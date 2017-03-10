@@ -23,6 +23,11 @@ public class Graph {
         return adjacency_matrix[source][destination];
     }
 
+    public boolean existEdge(int source, int destination) {
+        return adjacency_matrix[source][destination] > 0;
+    }
+
+
     public void addEdge(Edge edge) {
         if (edge != null) {
             adjacency_matrix[edge.getSource()][edge.getDestination()] = edge.getWeight();
@@ -57,6 +62,37 @@ public class Graph {
             distance += weight;
         }
         return distance;
+    }
+
+    public int numberOfRoutesOfExactlyKStops(int source, int destination, int numberOfStops) {
+
+        if (numberOfStops == 1 && existEdge(source,destination)) {
+            return 1;
+        }
+        else if (numberOfStops <= 0) {
+            return 0;
+        }
+
+        int count = 0;
+
+        for (int i = 0; i < TrainsConstants.NUMBER_OF_NODES; i++) {
+            if (existEdge(source, i)) {
+                count += numberOfRoutesOfExactlyKStops(i, destination, numberOfStops - 1);
+            }
+        }
+
+        return count;
+    }
+
+    public int numberOfRoutesOfMaximumKStops(int source, int destination, int numberOfStops){
+
+        int count = 0;
+
+        for(int i = 1; i <= numberOfStops; i++) {
+            count += numberOfRoutesOfExactlyKStops(source, destination, i);
+        }
+
+        return count;
     }
 
     public String outputRouteDistance(List<Edge> route) {
