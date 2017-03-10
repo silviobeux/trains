@@ -49,4 +49,55 @@ public class GraphTests {
         assertEquals(7, graph.getEdge(1,3));
     }
 
+    @Test
+    public void routeDistanceReturnsZeroWhenRouteIsNull() {
+        Graph graph = new Graph();
+        assertEquals(0, graph.routeDistance(null));
+    }
+
+    @Test
+    public void routeDistanceReturnsZeroWhenRouteIsEmpty() {
+        Graph graph = new Graph();
+        assertEquals(0, graph.routeDistance(new ArrayList<>()));
+    }
+
+    @Test
+    public void routeDistanceReturnsZeroWhenRouteDoesNotExist() {
+        Graph graph = new Graph();
+        Edge edge = new Edge(0,1);
+        List<Edge> route = new ArrayList<>();
+        route.add(edge);
+        assertEquals(0, graph.routeDistance(route));
+    }
+
+    @Test
+    public void routeDistanceReturnsDistanceWhenSingleRouteExist() {
+        Graph graph = new Graph();
+        Edge graphEdge = new Edge(0,1,5);
+        graph.addEdge(graphEdge);
+
+        Edge edge = new Edge(0,1);
+        List<Edge> route = new ArrayList<>();
+        route.add(edge);
+
+        assertEquals(5, graph.routeDistance(route));
+    }
+
+    @Test
+    public void routeDistanceReturnsDistanceWhenMultipleRouteExist() {
+        Edge edge1 = new Edge(0,1,5);
+        Edge edge2 = new Edge(1,2,4);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        Graph graph = new Graph(edges);
+
+        Edge routeEdge1 = new Edge(0,1);
+        Edge routeEdge2 = new Edge(1,2);
+        List<Edge> route = new ArrayList<>();
+        route.add(routeEdge1);
+        route.add(routeEdge2);
+
+        assertEquals(9, graph.routeDistance(route));
+    }
 }

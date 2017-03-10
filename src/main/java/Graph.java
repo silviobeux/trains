@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Graph {
 
-    private int[][] adjacency_matrix = new int[TrainsConstants.GRAPH_SIZE][TrainsConstants.GRAPH_SIZE];
+    private int[][] adjacency_matrix = new int[TrainsConstants.NUMBER_OF_NODES][TrainsConstants.NUMBER_OF_NODES];
 
     public Graph() {}
 
@@ -23,6 +23,12 @@ public class Graph {
         return adjacency_matrix[source][destination];
     }
 
+    public void addEdge(Edge edge) {
+        if (edge != null) {
+            adjacency_matrix[edge.getSource()][edge.getDestination()] = edge.getWeight();
+        }
+    }
+
     public boolean isEmpty(){
         for (int i = 0; i < adjacency_matrix.length; i++) {
             for (int j = 0; j < adjacency_matrix.length; j++) {
@@ -32,6 +38,37 @@ public class Graph {
             }
         }
         return true;
+    }
+
+    public int routeDistance(List<Edge> route) {
+
+        int distance = 0;
+
+        if (route == null || route.isEmpty()) {
+            return distance;
+        }
+
+        for (Edge edge : route) {
+            int weight = getEdge(edge.getSource(), edge.getDestination());
+            if (weight == 0) {
+                distance = 0;
+                return distance;
+            }
+            distance += weight;
+        }
+        return distance;
+    }
+
+    public String outputRouteDistance(List<Edge> route) {
+
+        int distance = routeDistance(route);
+
+        if (distance > 0) {
+            return String.valueOf(distance);
+        }
+        else {
+            return TrainsConstants.NO_SUCH_ROUTE;
+        }
     }
 
     public int[][] getAdjacency_matrix() {

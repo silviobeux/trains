@@ -9,9 +9,12 @@ public class TrainsUtils {
      * (i.e. not contained in the valid set of node)
      */
     public static int getNodeIndex(char letter) {
-        return TrainsConstants.VALID_NODE_RANGE.indexOf(letter);
+        return TrainsConstants.VALID_NODE_SET.indexOf(letter);
     }
 
+    /**
+     * Returns a list of weighted edges built from input string
+     */
     public static List<Edge> createEdgesFromInput(String input) {
         List<Edge> edgeList = new ArrayList<>();
 
@@ -35,10 +38,37 @@ public class TrainsUtils {
         return edgeList;
     }
 
+    /**
+     * Returns a list of edges corresponding to rhe route built from input string
+     */
+    public static List<Edge> createRouteFromString(String route) {
+        if (route == null || route.length() < 2) {
+            throw new IllegalArgumentException("Invalid route provided");
+        }
+
+        List<Edge> edges = new ArrayList<>();
+        for (int i = 0; i < route.length() - 1; i++) {
+            char source = route.charAt(i);
+            char destination = route.charAt(i + 1);
+            if (isValidNode(source) && isValidNode(destination)) {
+                edges.add(new Edge(TrainsUtils.getNodeIndex(source), TrainsUtils.getNodeIndex(destination)));
+            }
+            else {
+                throw new IllegalArgumentException("Invalid route provided");
+            }
+        }
+
+        return edges;
+    }
+
     public static boolean isValidEdge(String edge) {
-        return edge.length() > 2 && TrainsUtils.getNodeIndex(edge.charAt(0)) != -1
-                && TrainsUtils.getNodeIndex(edge.charAt(1)) != -1
+        return edge.length() > 2 && isValidNode(edge.charAt(0))
+                && isValidNode(edge.charAt(1))
                 && isValidWeight(edge.substring(2));
+    }
+
+    public static boolean isValidNode(char node) {
+        return TrainsUtils.getNodeIndex(node) != -1;
     }
 
     public static boolean isValidWeight(String weight) {

@@ -103,4 +103,59 @@ public class TrainsUtilTests {
         TrainsUtils.createEdgesFromInput("AB0");
     }
 
+    @Test
+    public void createRouteFromValidInputSingleEdge(){
+        List<Edge> route = TrainsUtils.createRouteFromString("AB");
+
+        assertEquals(1, route.size());
+
+        Edge edge = route.get(0);
+        assertEquals(0, edge.getSource());
+        assertEquals(1, edge.getDestination());
+    }
+
+    @Test
+    public void createRouteFromValidInputMultipleEdges(){
+        List<Edge> route = TrainsUtils.createRouteFromString("ABAC");
+
+        assertEquals(3, route.size());
+
+        Edge edge1 = route.get(0);
+        Edge edge2 = route.get(1);
+        Edge edge3 = route.get(2);
+
+        assertEquals(0, edge1.getSource());
+        assertEquals(1, edge1.getDestination());
+        assertEquals(1, edge2.getSource());
+        assertEquals(0, edge2.getDestination());
+        assertEquals(0, edge3.getSource());
+        assertEquals(2, edge3.getDestination());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createRouteFromNullInputThrowsException(){
+        TrainsUtils.createRouteFromString(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createRouteFromEmptyInputThrowsException(){
+        TrainsUtils.createRouteFromString("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createRouteFromSingleNodeThrowsException(){
+        TrainsUtils.createRouteFromString("A");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createRouteFromInvalidSourceEdgeThrowsException(){
+        TrainsUtils.createRouteFromString("2A");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createRouteFromInvalidDestinationEdgeThrowsException(){
+        TrainsUtils.createRouteFromString("A2");
+    }
+
+
 }
