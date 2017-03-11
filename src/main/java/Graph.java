@@ -95,6 +95,15 @@ public class Graph {
         return count;
     }
 
+    public int shortestPathLength(int source, int destination) {
+
+        Dijkstra dijkstra = new Dijkstra(adjacency_matrix);
+
+        int[] distances = dijkstra.shortestPaths(source);
+        return distances[destination];
+
+    }
+
     public String outputRouteDistance(List<Edge> route) {
 
         int distance = routeDistance(route);

@@ -27,6 +27,10 @@ public class Trains {
                     numberOfRoutesOfMaximumKStops(TrainsUtils.getNodeIndex('C'), TrainsUtils.getNodeIndex('C'), 3));
             System.out.println("Output #7: " + graph.
                     numberOfRoutesOfExactlyKStops(TrainsUtils.getNodeIndex('A'), TrainsUtils.getNodeIndex('C'), 4));
+            System.out.println("Output #8: " + graph.
+                    shortestPathLength(TrainsUtils.getNodeIndex('A'), TrainsUtils.getNodeIndex('C')));
+            System.out.println("Output #9: " + graph.
+                    shortestPathLength(TrainsUtils.getNodeIndex('B'), TrainsUtils.getNodeIndex('B')));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

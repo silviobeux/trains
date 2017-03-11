@@ -144,5 +144,43 @@ public class GraphTests {
         assertEquals(0, graph.numberOfRoutesOfExactlyKStops(0,1,0));
     }
 
+    @Test
+    public void shortestPathBetweenTwoConnectedNodesReturnsTheShortestPath() {
+        Edge edge1 = new Edge(0,1,5);
+        Edge edge2 = new Edge(1,2,4);
+        Edge edge3 = new Edge(0,2,6);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+
+        Graph graph = new Graph(edges);
+
+        assertEquals(6, graph.shortestPathLength(0,2));
+    }
+
+    @Test
+    public void shortestPathBetweenSameSourceAndDestinationNodesReturnsTheShortestPath() {
+        Edge edge1 = new Edge(0,1,5);
+        Edge edge2 = new Edge(1,2,4);
+        Edge edge3 = new Edge(2,0,1);
+        Edge edge4 = new Edge(1,0,2);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+        edges.add(edge4);
+
+        Graph graph = new Graph(edges);
+
+        assertEquals(7, graph.shortestPathLength(0,0));
+    }
+
+    @Test
+    public void shortestPathBetweenTwoNotConnectedNodesReturnsInfinite() {
+        Graph graph = new Graph();
+        assertEquals(Integer.MAX_VALUE, graph.shortestPathLength(0,3));
+    }
+
 
 }
