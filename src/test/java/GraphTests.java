@@ -1,4 +1,7 @@
+import trains.graph.Edge;
+import trains.graph.Graph;
 import org.junit.Test;
+import trains.TrainsConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,5 +185,42 @@ public class GraphTests {
         assertEquals(Integer.MAX_VALUE, graph.shortestPathLength(0,3));
     }
 
+    @Test
+    public void numberOfRoutesOfMaximumZeroWeightReturnsZero() {
+        Edge edge1 = new Edge(0,1,5);
+        Edge edge2 = new Edge(1,2,4);
+        Edge edge3 = new Edge(0,2,6);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
 
+        Graph graph = new Graph(edges);
+
+        assertEquals(0, graph.numberOfRoutesOfMaximumKWeight(0,2,0));
+    }
+
+    @Test
+    public void numberOfRoutesOfMaximumKWeightBetweenTwoNotConnectedNodesReturnsZero() {
+        Graph graph = new Graph();
+
+        assertEquals(0, graph.numberOfRoutesOfMaximumKWeight(0,2,5));
+    }
+
+    @Test
+    public void numberOfRoutesOfMaximumKWeightBetweenTwoConnectedNodesReturnsNumberRouterWithSizeLessThanK() {
+        Edge edge1 = new Edge(0,1,5);
+        Edge edge2 = new Edge(1,2,4);
+        Edge edge3 = new Edge(2,0,1);
+        Edge edge4 = new Edge(1,0,2);
+        List<Edge> edges = new ArrayList<>();
+        edges.add(edge1);
+        edges.add(edge2);
+        edges.add(edge3);
+        edges.add(edge4);
+
+        Graph graph = new Graph(edges);
+
+        assertEquals(5, graph.numberOfRoutesOfMaximumKWeight(0,0, 20));
+    }
 }

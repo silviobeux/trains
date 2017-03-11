@@ -1,3 +1,8 @@
+package trains.utils;
+
+import trains.TrainsConstants;
+import trains.graph.Edge;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +36,7 @@ public class TrainsUtils {
                     edgeList.add(new Edge(source, destination, weight));
                 }
                 else {
-                    throw new IllegalArgumentException("Invalid graph input provided");
+                    throw new IllegalArgumentException("Invalid trains.graph input provided");
                 }
             }
         }

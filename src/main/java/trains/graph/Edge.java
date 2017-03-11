@@ -1,3 +1,5 @@
+package trains.graph;
+
 public class Edge {
 
     private int source;

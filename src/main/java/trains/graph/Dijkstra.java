@@ -1,3 +1,7 @@
+package trains.graph;
+
+import trains.utils.PriorityNode;
+
 import java.util.PriorityQueue;
 
 public class Dijkstra {
@@ -6,40 +10,6 @@ public class Dijkstra {
     private int[][] adjacencyMatrix;
     private PriorityQueue<PriorityNode> priorityQueue;
     private int numberOfNodes;
-
-    public class PriorityNode implements Comparable<PriorityNode> {
-        private int index;
-        private int priority;
-
-        public PriorityNode(int index, int priority) {
-            this.index = index;
-            this.priority = priority;
-        }
-
-        @Override
-        public int compareTo(PriorityNode o) {
-            return Integer.valueOf(priority).compareTo(o.priority);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            PriorityNode that = (PriorityNode) o;
-
-            if (index != that.index) return false;
-            return priority == that.priority;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = index;
-            result = 31 * result + priority;
-            return result;
-        }
-    }
 
     public Dijkstra(int[][] adjacencyMatrix) {
         this.adjacencyMatrix = adjacencyMatrix;
@@ -61,13 +31,14 @@ public class Dijkstra {
             PriorityNode first = priorityQueue.poll();
 
             for (int i = 0; i < numberOfNodes; i++) {
-                if (adjacencyMatrix[first.index][i] != 0) {
+                if (adjacencyMatrix[first.getIndex()][i] != 0) {
                     if (distances[i] == 0) {
                         distances[i] = Integer.MAX_VALUE;
                     }
-                    if (distances[i] > distances[first.index] + adjacencyMatrix[first.index][i]) {
+                    int newDistance = distances[first.getIndex()] + adjacencyMatrix[first.getIndex()][i];
+                    if (distances[i] > newDistance) {
                         int oldIndex = distances[i];
-                        distances[i] = distances[first.index] + adjacencyMatrix[first.index][i];
+                        distances[i] = newDistance;
                         priorityQueue.remove(new PriorityNode(i, oldIndex));
                         priorityQueue.add(new PriorityNode(i, distances[i]));
                     }

@@ -1,4 +1,6 @@
+import trains.graph.Edge;
 import org.junit.Test;
+import trains.utils.TrainsUtils;
 
 import java.util.List;
 

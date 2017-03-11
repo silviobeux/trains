@@ -1,3 +1,8 @@
+package trains;
+
+import trains.graph.Graph;
+import trains.utils.TrainsUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -31,6 +36,8 @@ public class Trains {
                     shortestPathLength(TrainsUtils.getNodeIndex('A'), TrainsUtils.getNodeIndex('C')));
             System.out.println("Output #9: " + graph.
                     shortestPathLength(TrainsUtils.getNodeIndex('B'), TrainsUtils.getNodeIndex('B')));
+            System.out.println("Output #10: " + graph.
+                    numberOfRoutesOfMaximumKWeight(TrainsUtils.getNodeIndex('C'), TrainsUtils.getNodeIndex('C'), 30));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

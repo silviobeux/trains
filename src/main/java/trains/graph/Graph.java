@@ -1,7 +1,13 @@
+package trains.graph;
+
+import trains.TrainsConstants;
+import trains.utils.PriorityNode;
+
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
- * Represent a Graph as adjacency matrix. Each M(i,j) entry represents
+ * Represent a trains.graph.Graph as adjacency matrix. Each M(i,j) entry represents
  * the distance between i and j, 0 if there is no edge
  */
 
@@ -102,6 +108,31 @@ public class Graph {
         int[] distances = dijkstra.shortestPaths(source);
         return distances[destination];
 
+    }
+
+    public int numberOfRoutesOfMaximumKWeight(int source, int destination, int weight) {
+
+        PriorityQueue<PriorityNode> priorityQueue = new PriorityQueue<>();
+        int count = 0;
+
+        priorityQueue.add(new PriorityNode(source, 0));
+
+        while (!priorityQueue.isEmpty()) {
+            PriorityNode first = priorityQueue.poll();
+
+            for (int i = 0; i < TrainsConstants.NUMBER_OF_NODES; i++) {
+                if (existEdge(first.getIndex(),i)) {
+                    int newDistance = first.getPriority() + getEdge(first.getIndex(),i);
+                    if (newDistance < weight) {
+                        priorityQueue.add(new PriorityNode(i, newDistance));
+                        if (i == destination) {
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+        return count;
     }
 
     public String outputRouteDistance(List<Edge> route) {

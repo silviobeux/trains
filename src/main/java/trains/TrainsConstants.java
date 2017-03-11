@@ -1,3 +1,5 @@
+package trains;
+
 public final class TrainsConstants {
 
     public final static String VALID_NODE_SET = "ABCDEF";
